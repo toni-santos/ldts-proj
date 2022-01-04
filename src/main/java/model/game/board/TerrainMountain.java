@@ -6,7 +6,7 @@ public class TerrainMountain extends Terrain {
     Integer HP = 2;
     boolean alive = true;
 
-    TerrainMountain(Position pos) {
+    public TerrainMountain(Position pos) {
         super(pos);
     }
 

@@ -14,6 +14,18 @@ public class Board {
     Integer width = 0;
     Vector<Vector<Terrain>> Terrains = new Vector<>();
 
+    public Integer getHeight() {
+        return height;
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public Vector<Vector<Terrain>> getTerrains() {
+        return Terrains;
+    }
+
     public Board(Integer height, Integer width) {
         this.height = height;
         this.width = width;
@@ -52,7 +64,7 @@ public class Board {
                             row.add(terrain);
                             break;
                         case 'C': // City Terrain
-                            terrain = new TerrainCity(new Position(i,rowCounter), 1);
+                            terrain = new TerrainCity(new Position(i,rowCounter));
                             row.add(terrain);
                             break;
                         case 'M': // Mountain Terrain
@@ -79,15 +91,17 @@ public class Board {
         this.Terrains.get(terrain.getPos().getY()).insertElementAt(terrain, terrain.getPos().getX());
     }
 
-    public Integer getHeight() {
-        return height;
-    }
+    public Terrain findTerrain(Position pos) {
+        for (int i = 0; i < this.getTerrains().size(); i++) {
+            if (pos.getX() == i) {
+                for (int j = 0; j < this.getTerrains().elementAt(i).size(); i++) {
+                    if (pos.getY() == j) {
+                        return this.getTerrains().elementAt(i).elementAt(j);
+                    }
+                }
+            }
+        }
 
-    public Integer getWidth() {
-        return width;
-    }
-
-    public Vector<Vector<Terrain>> getTerrains() {
-        return Terrains;
+        return null;
     }
 }
