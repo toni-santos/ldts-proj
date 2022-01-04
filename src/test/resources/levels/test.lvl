@@ -1,0 +1,6 @@
+3x2
+PWC
+MFP
+
+ROBOT   1,0 false   2   PUNCH
+ROBOT   1,1 true   4   ARMAGEDDON
