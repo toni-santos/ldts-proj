@@ -11,6 +11,20 @@ public class Position {
 
     public Position() {}
 
+    public  Position right() {
+        return new Position(x++, y);
+    }
+
+    public  Position left() { return new Position(x--, y);}
+
+    public  Position up() {
+        return new Position(x, y--);
+    }
+
+    public  Position down() {
+        return new Position(x, y++);
+    }
+
     public Integer getX() {
         return x;
     }
