@@ -2,25 +2,22 @@ package model.game.entity;
 
 import model.Position;
 
+import java.util.Vector;
+
 public abstract class Entity {
-    Integer HP = 0;
-    Integer movementRange = 0;
-    Position pos = new Position();
+    Integer HP;
+    Integer movementRange;
+    Position pos;
     boolean alive = true;
-    boolean flying = false;
-    boolean attackReady = true;
+    boolean flying;
+    Vector<Ability> abilities;
 
-    Entity(Position pos)  {
-        this.pos = pos;
-    }
-
-    Entity(Position pos, boolean flying, Integer movementRange)  {
+    Entity(Position pos, boolean flying, Integer movementRange, Vector<Ability> abilities)  {
         this.pos = pos;
         this.flying = flying;
         this.movementRange = movementRange;
+        this.abilities = abilities;
     }
-
-    // TODO: range of movement
 
     public Integer getHP() {
         return HP;
@@ -30,6 +27,16 @@ public abstract class Entity {
         return pos;
     }
 
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public Integer getMovementRange() { return movementRange; }
+
+    public boolean isFlying() { return flying; }
+
+    public Vector<Ability> getAbilities() { return abilities; }
+
     public void setHP(Integer HP) {
         this.HP = HP;
     }
@@ -38,9 +45,9 @@ public abstract class Entity {
         this.pos = pos;
     }
 
-    public boolean isAlive() {
-        return alive;
-    }
+    public void setMovementRange(Integer movementRange) { this.movementRange = movementRange; }
+
+    public void addAbilities(Ability ability) { this.getAbilities().add(ability); }
 
     public void kill() {
         this.alive = false;

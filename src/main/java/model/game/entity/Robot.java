@@ -2,12 +2,10 @@ package model.game.entity;
 
 import model.Position;
 
-public class Robot extends Entity{
-    Robot(Position pos) {
-        super(pos);
-    }
+import java.util.Vector;
 
-    Robot(Position pos, boolean flying, Integer movementRange) {
-        super(pos, flying, movementRange);
+public abstract class Robot extends Entity{
+    Robot(Position pos, boolean flying, Integer movementRange, Vector<Ability> abilities) {
+        super(pos, flying, movementRange, abilities);
     }
 }
