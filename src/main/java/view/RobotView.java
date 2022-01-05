@@ -1,4 +1,4 @@
-package model.view;
+package view;
 
 public class RobotView implements ElementView{
     @Override

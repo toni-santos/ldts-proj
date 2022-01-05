@@ -1,8 +1,6 @@
-package model.view;
+package view;
 
 import model.game.board.Terrain;
-import model.game.board.TerrainCity;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

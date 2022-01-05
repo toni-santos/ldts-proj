@@ -1,4 +1,4 @@
-package model.view;
+package view;
 
 import model.game.board.Terrain;
 
