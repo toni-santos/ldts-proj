@@ -1,5 +1,5 @@
 package model.view;
 
-public interface ElementView {
-    void draw();
+public interface ElementView <T extends Element>{
+    void draw(T element);
 }
