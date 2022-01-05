@@ -4,69 +4,63 @@ import model.Position;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 
 import static java.lang.Integer.valueOf;
 
 public class Board {
-    Integer height = 0;
-    Integer width = 0;
-    Vector<Vector<Terrain>> Terrains = new Vector<>();
+    private int width = 0;
+    private int height = 0;
+    private final List<Terrain> terrains = new Vector<>();
 
-    public Board(Integer height, Integer width) {
-        this.height = height;
+    public Board(int width, int height) {
         this.width = width;
+        this.height = height;
 
-        for (int i = 0; i < height; i++) {
-            Vector<Terrain> aux = new Vector<>();
-            for (int j = 0; j < width; j++) {
-                aux.add(new TerrainPlain(new Position(i,j)));
-            }
-            this.Terrains.add(aux);
-        }
+        for (int y = 0; y < height; y++)
+            for (int x = 0; x < width; x++)
+                this.terrains.add(new TerrainPlain(new Position(x, y)));
     }
 
     public Board(File mapFile) {
         try {
-            int rowCounter = 0;
+            int y = 0;
             Scanner scanner = new Scanner(mapFile);
             String sizeInfo = scanner.nextLine();
             String[] info = sizeInfo.split("x");
-            this.width = valueOf(info[0]);
-            this.height = valueOf(info[1]);
+            this.width = Integer.parseInt(info[0]);
+            this.height = Integer.parseInt(info[1]);
             while (scanner.hasNextLine()) {
-                Vector<Terrain> row = new Vector<>();
                 String line = scanner.nextLine();
-                for (int i = 0; i < line.length(); i++){
-                    Terrain terrain;
-                    char c = line.charAt(i);
+
+                for (int x = 0; x < line.length(); x++){
+                    Terrain terrain = null;
+                    char c = line.charAt(x);
 
                     switch (c){
                         case 'P': // Plain Terrain
-                            terrain = new TerrainPlain(new Position(i,rowCounter));
-                            row.add(terrain);
+                            terrain = new TerrainPlain(new Position(x, y));
                             break;
                         case 'W': // Water Terrain
-                            terrain = new TerrainWater(new Position(i,rowCounter));
-                            row.add(terrain);
+                            terrain = new TerrainWater(new Position(x, y));
                             break;
                         case 'C': // City Terrain
-                            terrain = new TerrainCity(new Position(i,rowCounter), 1);
-                            row.add(terrain);
+                            terrain = new TerrainCity(new Position(x, y), 1);
                             break;
                         case 'M': // Mountain Terrain
-                            terrain = new TerrainMountain(new Position(i,rowCounter));
-                            row.add(terrain);
+                            terrain = new TerrainMountain(new Position(x, y));
                             break;
                         case 'F': // Forest Terrain
-                            terrain = new TerrainForest(new Position(i,rowCounter), false);
-                            row.add(terrain);
+                            terrain = new TerrainForest(new Position(x, y), false);
                             break;
                     }
+
+                    if (terrain != null)
+                        this.terrains.add(terrain);
                 }
-                this.Terrains.add(row);
-                rowCounter++;
+                y++;
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -74,20 +68,23 @@ public class Board {
 
     }
 
-    public void addTerrain(Terrain terrain) {
-        this.Terrains.get(terrain.getPos().getY()).remove(terrain.getPos().getX());
-        this.Terrains.get(terrain.getPos().getY()).insertElementAt(terrain, terrain.getPos().getX());
+    public void setTerrain(Terrain terrain) {
+        this.terrains.set(terrain.getPos().getY() * width + terrain.getPos().getX(), terrain);
     }
 
-    public Integer getHeight() {
-        return height;
-    }
-
-    public Integer getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public Vector<Vector<Terrain>> getTerrains() {
-        return Terrains;
+    public int getHeight() {
+        return height;
+    }
+
+    public List<Terrain> getTerrains() {
+        return terrains;
+    }
+
+    public Terrain getTerrainAt(Position position) {
+        return this.terrains.get(position.getY() * width + position.getX());
     }
 }

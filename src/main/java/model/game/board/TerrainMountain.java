@@ -3,18 +3,18 @@ package model.game.board;
 import model.Position;
 
 public class TerrainMountain extends Terrain {
-    Integer HP = 2;
-    boolean alive = true;
+    private int HP = 2;
+    private boolean alive = true;
 
-    TerrainMountain(Position pos) {
+    public TerrainMountain(Position pos) {
         super(pos);
     }
 
-    public Integer getHP() {
+    public int getHP() {
         return HP;
     }
 
-    public void setHP(Integer HP) {
+    public void setHP(int HP) {
         this.HP = HP;
     }
 

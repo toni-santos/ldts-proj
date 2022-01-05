@@ -16,11 +16,8 @@ public class BoardTest {
     public void PlainBoardTest() {
         Board board = new Board(8,8);
 
-        for (Vector<Terrain> TerrainRow: board.getTerrains()) {
-            for (Terrain terrain: TerrainRow) {
-                assertEquals(TerrainPlain.class,terrain.getClass());
-            }
-        }
+        for (Terrain terrain : board.getTerrains())
+                assertEquals(TerrainPlain.class, terrain.getClass());
     }
 
     @Test
