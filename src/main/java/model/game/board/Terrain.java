@@ -3,9 +3,9 @@ package model.game.board;
 import model.Position;
 
 public abstract class Terrain {
-    Position pos;
+    private Position pos;
 
-    Terrain(Position pos) {
+    public Terrain(Position pos) {
         this.pos = pos;
     }
 
