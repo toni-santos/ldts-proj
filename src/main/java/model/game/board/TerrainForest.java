@@ -3,7 +3,7 @@ package model.game.board;
 import model.Position;
 
 public class TerrainForest extends Terrain {
-    boolean burning = false;
+    private boolean burning = false;
 
     public TerrainForest(Position pos, boolean burning) {
         super(pos);

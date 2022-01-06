@@ -3,10 +3,17 @@ package model.game.board;
 import model.Position;
 
 public class TerrainCity extends Terrain {
-    boolean alive = true;
+    private int HP = 1;
+    private boolean alive = true;
 
-    public TerrainCity(Position pos) {
-        super(pos);
+    public TerrainCity(Position pos) { super(pos); }
+
+    public int getHP() {
+        return HP;
+    }
+
+    public void setHP(int HP) {
+        this.HP = HP;
     }
 
     public boolean isAlive() {

@@ -5,9 +5,9 @@ import model.Position;
 import java.util.Objects;
 
 public abstract class Terrain {
-    Position pos;
+    private Position pos;
 
-    Terrain(Position pos) {
+    public Terrain(Position pos) {
         this.pos = pos;
     }
 
