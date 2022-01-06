@@ -50,3 +50,4 @@ public class Position {
         return Objects.hash(getX(), getY());
     }
 }
+
