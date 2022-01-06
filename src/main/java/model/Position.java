@@ -1,43 +1,29 @@
 package model;
 
 public class Position {
-    Integer x = 0;
-    Integer y = 0;
+    int x = 0;
+    int y = 0;
 
-    public Position(Integer x, Integer y) {
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
     public Position() {}
 
-    public  Position right() {
-        return new Position(x++, y);
-    }
+    public  Position right() { return new Position(x+1, y); }
 
-    public  Position left() { return new Position(x--, y);}
+    public  Position left() { return new Position(x-1, y);}
 
-    public  Position up() {
-        return new Position(x, y--);
-    }
+    public  Position up() { return new Position(x, y-1); }
 
-    public  Position down() {
-        return new Position(x, y++);
-    }
+    public  Position down() { return new Position(x, y+1); }
 
-    public Integer getX() {
-        return x;
-    }
+    public int getX() { return x; }
 
-    public Integer getY() {
-        return y;
-    }
+    public int getY() { return y; }
 
-    public void setX(Integer x) {
-        this.x = x;
-    }
+    public void setX(int x) { this.x = x; }
 
-    public void setY(Integer y) {
-        this.y = y;
-    }
+    public void setY(int y) { this.y = y; }
 }
