@@ -2,5 +2,6 @@
 PWC
 MFP
 
-ROBOT   1,0 false   2   PUNCH
-ROBOT   1,1 true   4   ARMAGEDDON
+ROBOT   CANON   0,0
+ROBOT   FLYING  0,1
+ROBOT   TANK    1,1
