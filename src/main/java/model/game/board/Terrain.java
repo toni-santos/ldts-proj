@@ -2,10 +2,12 @@ package model.game.board;
 
 import model.Position;
 
-public abstract class Terrain {
-    Position pos;
+import java.util.Objects;
 
-    Terrain(Position pos) {
+public abstract class Terrain {
+    private Position pos;
+
+    public Terrain(Position pos) {
         this.pos = pos;
     }
 
@@ -15,5 +17,18 @@ public abstract class Terrain {
 
     public Position getPos() {
         return pos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Terrain)) return false;
+        Terrain terrain = (Terrain) o;
+        return getPos().equals(terrain.getPos());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPos());
     }
 }

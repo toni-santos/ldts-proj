@@ -3,19 +3,16 @@ package model.game.board;
 import model.Position;
 
 public class TerrainCity extends Terrain {
-    Integer HP = 0;
-    boolean alive = true;
+    private int HP = 1;
+    private boolean alive = true;
 
-    TerrainCity(Position pos, Integer HP) {
-        super(pos);
-        this.HP = HP;
-    }
+    public TerrainCity(Position pos) { super(pos); }
 
-    public Integer getHP() {
+    public int getHP() {
         return HP;
     }
 
-    public void setHP(Integer HP) {
+    public void setHP(int HP) {
         this.HP = HP;
     }
 
