@@ -1,0 +1,7 @@
+3x2
+PWC
+MFP
+
+ROBOT   CANON   0,0
+ROBOT   FLYING  0,1
+ROBOT   TANK    1,1
