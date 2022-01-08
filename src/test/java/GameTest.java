@@ -4,10 +4,8 @@ import model.game.entity.Ability;
 import model.game.entity.Creature;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
 import java.io.File;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Vector;
 import java.util.stream.Stream;
@@ -40,8 +38,6 @@ public class GameTest {
         assertEquals(3, game.getBoard().getWidth());
         assertEquals(2, game.getBoard().getHeight());
 
-        // Current idea is to check if the created stream of terrain objects (by hand)
-        // is the same as the one created through the file
         for (int y = 0; y < game.getBoard().getHeight(); y++) {
             for (int x = 0; x < game.getBoard().getWidth(); x++) {
                 Terrain elem = game.getBoard().getTerrainAt(new Position(x,y));
