@@ -2,6 +2,7 @@ package model.game.entity;
 
 import model.Position;
 
+import java.util.Objects;
 import java.util.Vector;
 
 public class Creature {
@@ -13,7 +14,7 @@ public class Creature {
 
     public enum Type {
         TANK,
-        CANON,
+        CANNON,
         FLYING
     }
 
@@ -26,7 +27,7 @@ public class Creature {
     boolean flying;
     Vector<Ability> abilities;
 
-    Creature(Type type, Faction faction, Position pos, int HP, int movementRange, boolean flying, Vector<Ability> abilities)  {
+    public Creature(Type type, Faction faction, Position pos, int HP, int movementRange, boolean flying, Vector<Ability> abilities)  {
         this.type = type;
         this.faction = faction;
         this.pos = pos;
@@ -49,4 +50,17 @@ public class Creature {
     public Vector<Ability> getAbilities() { return abilities; }
 
     public void kill() { this.alive = false; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Creature)) return false;
+        Creature creature = (Creature) o;
+        return getHP() == creature.getHP() && getMovementRange() == creature.getMovementRange() && isAlive() == creature.isAlive() && isFlying() == creature.isFlying() && type == creature.type && faction == creature.faction && getPos().equals(creature.getPos()) && getAbilities().equals(creature.getAbilities());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, faction, getPos(), getHP(), getMovementRange(), isAlive(), isFlying(), getAbilities());
+    }
 }

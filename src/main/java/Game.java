@@ -1,8 +1,10 @@
 import model.Position;
 import model.game.board.*;
+import model.game.entity.Creature;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.CacheRequest;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +12,7 @@ import java.util.Vector;
 
 public class Game {
     private Board board;
-
+    private Vector<Creature> robots;
 
     public void readLevelFile(File mapFile) throws URISyntaxException {
         int width = 0;
@@ -62,4 +64,7 @@ public class Game {
     }
 
     public Board getBoard() { return board; }
+
+    public Vector<Creature> getRobots() { return robots; }
+
 }
