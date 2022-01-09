@@ -13,10 +13,19 @@ import java.util.Vector;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * An all-encompassing class of methods related to running the game
+ */
 public class Game {
     private Board board;
     private Vector<Creature> robots = new Vector<>();
 
+    /**
+     * Reads a file with information about the board and the robots that inhabit it
+     *
+     * @param mapFile A .lvl file stored in the resources folder
+     * @throws URISyntaxException
+     */
     public void readLevelFile(File mapFile) throws URISyntaxException {
         int width = 0;
         int height = 0;
@@ -83,8 +92,14 @@ public class Game {
         this.board = new Board(width, height, terrains);
     }
 
+    /**
+     * @return The current board of the game
+     */
     public Board getBoard() { return board; }
 
+    /**
+     * @return The robots of the current game
+     */
     public Vector<Creature> getRobots() { return robots; }
 
 }
