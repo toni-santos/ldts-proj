@@ -11,37 +11,34 @@ import org.mockito.Mockito;
 public class ViewsTest {
     @Test
     public void terrainViewTest() {
-        Position pos = new Position(3, 5);
-        Terrain terrain = new TerrainPlain(pos);
+        Terrain terrain = new TerrainPlain(new Position(3, 5));
         View view = new TerrainView(terrain);
 
         GUI gui = Mockito.mock(GUI.class);
         view.draw(gui);
 
-        Mockito.verify(gui, Mockito.times(1)).drawTerrain(pos);
+        Mockito.verify(gui, Mockito.times(1)).drawTerrain(terrain);
     }
 
     @Test
     public void alienCreatureViewTest() {
-        Position pos = new Position(1, 3);
-        Creature alien = new Creature(Creature.Type.CANNON, Creature.Faction.ALIEN, pos, 0, 0, false, null);
+        Creature alien = new Creature(Creature.Type.CANNON, Creature.Faction.ALIEN, new Position(1, 3), 0, 0, false, null);
         View view = new CreatureView(alien);
 
         GUI gui = Mockito.mock(GUI.class);
         view.draw(gui);
 
-        Mockito.verify(gui, Mockito.times(1)).drawAlien(pos);
+        Mockito.verify(gui, Mockito.times(1)).drawAlien(alien);
     }
 
     @Test
     public void robotCreatureViewTest() {
-        Position pos = new Position(6, 2);
-        Creature robot = new Creature(Creature.Type.CANNON, Creature.Faction.ROBOT, pos, 0, 0, false, null);
+        Creature robot = new Creature(Creature.Type.CANNON, Creature.Faction.ROBOT, new Position(6, 2), 0, 0, false, null);
         View view = new CreatureView(robot);
 
         GUI gui = Mockito.mock(GUI.class);
         view.draw(gui);
 
-        Mockito.verify(gui, Mockito.times(1)).drawRobot(pos);
+        Mockito.verify(gui, Mockito.times(1)).drawRobot(robot);
     }
 }

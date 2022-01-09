@@ -114,7 +114,6 @@ public class Game {
                 String line = scanner.nextLine();
 
                 String[] robotInfo = line.split("_");
-                System.out.println(robotInfo[1]);
                 String[] robotPos = robotInfo[1].split(",");
 
                 switch (robotInfo[0]) {

@@ -1,4 +1,5 @@
 package gui;
+import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -6,7 +7,10 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import model.Position;
+import model.game.board.*;
+import model.game.entity.Creature;
 
 import java.io.IOException;
 
@@ -71,7 +75,10 @@ public class GUI {
     }
 
     private Terminal createTerminal() throws IOException {
-        return new DefaultTerminalFactory().createTerminal();
+        return new DefaultTerminalFactory()
+                .setTerminalEmulatorFontConfiguration(AWTTerminalFontConfiguration.getDefaultOfSize(64))
+                .setForceAWTOverSwing(true)
+                .createTerminal();
     }
 
     /**
@@ -83,31 +90,57 @@ public class GUI {
 
     private void drawEntity(int x, int y, char c) {
         TextGraphics tg = screen.newTextGraphics();
-        tg.putString(x, y, "" + c);
+        tg.setCharacter(x, y, TextCharacter.fromCharacter(c, null, screen.getBackCharacter(x, y).getBackgroundColor())[0]);
     }
 
     /**
      * @brief Draws a new alien using the drawEntity method.
-     * @param position the position (x and y coordinates) of the alien.
+     * @param creature the alien to draw.
      */
-    public void drawAlien(Position position) {
-        drawEntity(position.getX(), position.getY(), 'a');
+    public void drawAlien(Creature creature) {
+        char c = switch (creature.getType()) {
+            case TANK -> 't';
+            case CANNON -> 'c';
+            case FLYING -> 'f';
+        };
+        drawEntity(creature.getPos().getX(), creature.getPos().getY(), c);
     }
 
     /**
      * @brief Draws a new robot using the drawEntity method.
-     * @param position the position (x and y coordinates) of the robot.
+     * @param creature the robot to draw.
      */
-    public void drawRobot(Position position) {
-        drawEntity(position.getX(), position.getY(), 'r');
+    public void drawRobot(Creature creature) {
+        char c = switch (creature.getType()) {
+            case TANK -> 'T';
+            case CANNON -> 'C';
+            case FLYING -> 'F';
+        };
+        drawEntity(creature.getPos().getX(), creature.getPos().getY(), c);
     }
 
     /**
      * @brief Draws a new terrain square using the drawEntity method.
-     * @param position the position (x and y coordinates) of the terrain.
+     * @param terrain the terrain to draw.
      */
-    public void drawTerrain(Position position) {
-        drawEntity(position.getX(), position.getY(), 't');
+    public void drawTerrain(Terrain terrain) {
+        TextColor color = null;
+
+        if (terrain instanceof TerrainPlain)
+            color = new TextColor.RGB(93, 201, 122);
+        if (terrain instanceof TerrainForest)
+            color = new TextColor.RGB(6, 46, 17);
+        if (terrain instanceof TerrainMountain)
+            color = new TextColor.RGB(54, 37, 6);
+        if (terrain instanceof TerrainWater)
+            color = new TextColor.RGB(73, 150, 201);
+        if (terrain instanceof TerrainCity)
+            color = new TextColor.RGB(162, 168, 163);
+
+        TextCharacter character = TextCharacter.fromCharacter(' ', null, color)[0];
+
+        TextGraphics tg = screen.newTextGraphics();
+        tg.setCharacter(terrain.getPos().getX(), terrain.getPos().getY(), character);
     }
 
     /**

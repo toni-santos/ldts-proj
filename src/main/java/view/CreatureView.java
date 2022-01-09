@@ -13,9 +13,9 @@ public class CreatureView implements View {
     @Override
     public void draw(GUI gui) {
         if (creature.getFaction() == Creature.Faction.ALIEN)
-            gui.drawAlien(creature.getPos());
+            gui.drawAlien(creature);
         else
-            gui.drawRobot(creature.getPos());
+            gui.drawRobot(creature);
     }
 
     public Creature getCreature() {
