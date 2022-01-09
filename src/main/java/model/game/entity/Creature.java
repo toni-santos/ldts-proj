@@ -50,42 +50,42 @@ public class Creature {
     /**
      * The type of the creature
      */
-    Type type;
+    private Type type;
 
     /**
      * The faction of the creature
      */
-    Faction faction;
+    private Faction faction;
 
     /**
      * The position of the creature
      */
-    Position pos;
+    private Position pos;
 
     /**
      * The HP of the creature
      */
-    int HP;
+    private int HP;
 
     /**
      * The range of movement of a creature
      */
-    int movementRange;
+    private int movementRange;
 
     /**
      * The status of the creature (true if alive, false if deceased)
      */
-    boolean alive = true;
+    private boolean alive = true;
 
     /**
      * The ability of the unit to fly
      */
-    boolean flying;
+    private boolean flying;
 
     /**
      * The abilities that the unit possesses
      */
-    Vector<Ability> abilities;
+    private Vector<Ability> abilities;
 
     /**
      * Creates a creature with the given parameters
@@ -117,6 +117,16 @@ public class Creature {
      * @return The current position of the creature
      */
     public Position getPos() { return pos; }
+
+    /**
+     * @return The type of the creature
+     */
+    public Type getType() { return type; }
+
+    /**
+     * @return The faction of the creature
+     */
+    public Faction getFaction() { return faction; }
 
     /**
      * @return True if <i>the creature is alive</i>
@@ -152,7 +162,7 @@ public class Creature {
         if (this == o) return true;
         if (!(o instanceof Creature)) return false;
         Creature creature = (Creature) o;
-        return getHP() == creature.getHP() && getMovementRange() == creature.getMovementRange() && isAlive() == creature.isAlive() && isFlying() == creature.isFlying() && type == creature.type && faction == creature.faction && getPos().equals(creature.getPos()) && getAbilities().equals(creature.getAbilities());
+        return getHP() == creature.getHP() && getMovementRange() == creature.getMovementRange() && isAlive() == creature.isAlive() && isFlying() == creature.isFlying() && getType() == creature.getType() && getFaction() == creature.getFaction() && getPos().equals(creature.getPos()) && getAbilities().equals(creature.getAbilities());
     }
 
     @Override
