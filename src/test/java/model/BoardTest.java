@@ -11,6 +11,9 @@ import java.util.Vector;
 import java.util.stream.Stream;
 
 
+/**
+ * Tests the {@link model.game.board.Board}
+ */
 public class BoardTest {
     @Test
     void PlainBoardTest() {

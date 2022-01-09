@@ -12,12 +12,15 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests the {@link Game}
+ */
 public class GameTest {
 
     static Stream<Terrain> terrainStream() {
         return Stream.of(
-            new TerrainPlain(new Position(0,0)),new TerrainWater(new Position(1,0)), new TerrainCity(new Position(2,0)),
-            new TerrainMountain(new Position(0,1)), new TerrainForest(new Position(1,1), false), new TerrainPlain(new Position(2,1))
+                new TerrainPlain(new Position(0,0)),new TerrainWater(new Position(1,0)), new TerrainCity(new Position(2,0)),
+                new TerrainMountain(new Position(0,1)), new TerrainForest(new Position(1,1), false), new TerrainPlain(new Position(2,1))
         );
     }
 
