@@ -12,7 +12,7 @@ public class TerrainView implements View {
 
     @Override
     public void draw(GUI gui) {
-        //TODO
+        gui.drawTerrain(terrain.getPos());
     }
 
     public Terrain getTerrain() {

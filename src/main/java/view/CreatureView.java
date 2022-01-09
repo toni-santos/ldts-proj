@@ -12,7 +12,10 @@ public class CreatureView implements View {
 
     @Override
     public void draw(GUI gui) {
-        // TODO
+        if (creature.getFaction() == Creature.Faction.ALIEN)
+            gui.drawAlien(creature.getPos());
+        else
+            gui.drawRobot(creature.getPos());
     }
 
     public Creature getCreature() {
