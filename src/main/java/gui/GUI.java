@@ -1,8 +1,10 @@
 package gui;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import model.Position;
 
@@ -21,6 +23,10 @@ public class GUI {
      */
     public GUI(Screen screen) {
         this.screen = screen;
+    }
+
+    public GUI() throws IOException {
+        this.screen = createScreen(createTerminal());
     }
 
     /**
@@ -46,6 +52,10 @@ public class GUI {
         screen.refresh();
     }
 
+    public KeyStroke getNextEvent() throws IOException {
+        return screen.readInput();
+    }
+
     /**
      * @brief Creates a new Screen object using the TerminalScreen class.
      * @param terminal the terminal under the screen to be created.
@@ -58,6 +68,10 @@ public class GUI {
         screen.setCursorPosition(null);
         screen.doResizeIfNecessary();
         return screen;
+    }
+
+    private Terminal createTerminal() throws IOException {
+        return new DefaultTerminalFactory().createTerminal();
     }
 
     /**

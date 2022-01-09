@@ -1,15 +1,21 @@
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
+import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.TerminalFactory;
+import gui.GUI;
 import model.Position;
 import model.game.board.*;
 import model.game.entity.Ability;
 import model.game.entity.Creature;
+import view.CreatureView;
+import view.TerrainView;
+import view.View;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
 
 import static java.lang.Integer.parseInt;
 
@@ -17,16 +23,55 @@ import static java.lang.Integer.parseInt;
  * An all-encompassing class of methods related to running the game
  */
 public class Game {
+
+    public static void main(String[] args) throws IOException, URISyntaxException {
+        Game game = new Game(new GUI());
+        File firstLevel = new File(Game.class.getResource("levels/lvl01.lvl").toURI());
+        game.readLevelFile(firstLevel);
+        game.start();
+    }
+
+    private GUI gui;
     private Board board;
     private Vector<Creature> robots = new Vector<>();
+
+    public Game(GUI gui) {
+        this.gui = gui;
+    }
+
+    private void start() throws IOException {
+        int FPS = 1;
+        int frameTime = 1000 / FPS;
+
+        List<View> views = new ArrayList<>();
+
+        for (Terrain t : board.getTerrains())
+            views.add(new TerrainView(t));
+        for (Creature c : robots)
+            views.add(new CreatureView(c));
+
+        while (true) {
+            for (View v : views)
+                v.draw(gui);
+
+            gui.refresh();
+
+            KeyStroke key = gui.getNextEvent();
+
+            if (key.getCharacter() != null && (key.getCharacter() == 'q' || key.getCharacter() == 'Q'))
+                gui.close();
+
+            if (key.getKeyType() == KeyType.EOF)
+                break;
+        }
+    }
 
     /**
      * Reads a file with information about the board and the robots that inhabit it
      *
      * @param mapFile A .lvl file stored in the resources folder
-     * @throws URISyntaxException
      */
-    public void readLevelFile(File mapFile) throws URISyntaxException {
+    public void readLevelFile(File mapFile) {
         int width = 0;
         int height = 0;
         List<Terrain> terrains = new Vector<>();
@@ -79,8 +124,8 @@ public class Game {
                     case "FLYING" -> robots.add(
                             new Creature(Creature.Type.FLYING, Creature.Faction.ROBOT, new Position(parseInt(robotPos[0]), parseInt(robotPos[1])), 2, 6, true, new Vector<>(Arrays.asList(Ability.LONG_RANGE_MISSILE, Ability.ARMAGEDDON)))
                     );
-                    case "CANON" -> robots.add(
-                            new Creature(Creature.Type.TANK, Creature.Faction.ALIEN, new Position(parseInt(robotPos[0]), parseInt(robotPos[1])), 3, 4, false, new Vector<>(Arrays.asList(Ability.PUNCH, Ability.GRENADE)))
+                    case "TANK" -> robots.add(
+                            new Creature(Creature.Type.TANK, Creature.Faction.ROBOT, new Position(parseInt(robotPos[0]), parseInt(robotPos[1])), 3, 4, false, new Vector<>(Arrays.asList(Ability.PUNCH, Ability.GRENADE)))
                     );
                 }
             }
