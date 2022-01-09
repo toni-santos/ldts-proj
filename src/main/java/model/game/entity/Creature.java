@@ -18,14 +18,14 @@ public class Creature {
         FLYING
     }
 
-    Type type;
-    Faction faction;
-    Position pos;
-    int HP;
-    int movementRange;
-    boolean alive = true;
-    boolean flying;
-    Vector<Ability> abilities;
+    private Type type;
+    private Faction faction;
+    private Position pos;
+    private int HP;
+    private int movementRange;
+    private boolean alive = true;
+    private boolean flying;
+    private Vector<Ability> abilities;
 
     public Creature(Type type, Faction faction, Position pos, int HP, int movementRange, boolean flying, Vector<Ability> abilities)  {
         this.type = type;
@@ -40,6 +40,14 @@ public class Creature {
     public int getHP() { return HP; }
 
     public Position getPos() { return pos; }
+
+    public Type getType() {
+        return type;
+    }
+
+    public Faction getFaction() {
+        return faction;
+    }
 
     public boolean isAlive() { return alive; }
 
@@ -56,7 +64,7 @@ public class Creature {
         if (this == o) return true;
         if (!(o instanceof Creature)) return false;
         Creature creature = (Creature) o;
-        return getHP() == creature.getHP() && getMovementRange() == creature.getMovementRange() && isAlive() == creature.isAlive() && isFlying() == creature.isFlying() && type == creature.type && faction == creature.faction && getPos().equals(creature.getPos()) && getAbilities().equals(creature.getAbilities());
+        return getHP() == creature.getHP() && getMovementRange() == creature.getMovementRange() && isAlive() == creature.isAlive() && isFlying() == creature.isFlying() && getType() == creature.getType() && getFaction() == creature.getFaction() && getPos().equals(creature.getPos()) && getAbilities().equals(creature.getAbilities());
     }
 
     @Override
