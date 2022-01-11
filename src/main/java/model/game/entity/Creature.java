@@ -92,16 +92,14 @@ public class Creature {
      *
      * @param type The type of the creature
      * @param faction The faction of the creature
-     * @param pos The position of the creature
      * @param HP The HP of the creature
      * @param movementRange The range of movement of the creature
      * @param flying The ability of the unit to fly
      * @param abilities The abilities that the unit possesses
      */
-    public Creature(Type type, Faction faction, Position pos, int HP, int movementRange, boolean flying, Vector<Ability> abilities)  {
+    public Creature(Type type, Faction faction, int HP, int movementRange, boolean flying, Vector<Ability> abilities)  {
         this.type = type;
         this.faction = faction;
-        this.pos = pos;
         this.HP = HP;
         this.movementRange = movementRange;
         this.flying = flying;
@@ -117,6 +115,8 @@ public class Creature {
      * @return The current position of the creature
      */
     public Position getPos() { return pos; }
+
+    public void setPos(Position pos) { this.pos = pos; }
 
     /**
      * @return The type of the creature

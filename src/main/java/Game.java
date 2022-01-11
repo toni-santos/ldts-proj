@@ -1,15 +1,13 @@
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
-import com.googlecode.lanterna.terminal.Terminal;
-import com.googlecode.lanterna.terminal.TerminalFactory;
 import gui.GUI;
 import model.Position;
 import model.game.board.*;
-import model.game.entity.Ability;
 import model.game.entity.Creature;
 import view.CreatureView;
 import view.TerrainView;
 import view.View;
+import model.game.entity.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -113,26 +111,33 @@ public class Game {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
 
+                Creature creature;
+
                 String[] robotInfo = line.split("_");
                 String[] robotPos = robotInfo[1].split(",");
 
                 switch (robotInfo[0]) {
-                    case "CANNON" -> robots.add(
-                            new Creature(Creature.Type.CANNON, Creature.Faction.ROBOT, new Position(parseInt(robotPos[0]), parseInt(robotPos[1])), 2, 5, false, new Vector<>(Arrays.asList(Ability.LONG_RANGE_MISSILE, Ability.GRENADE)))
-                    );
-                    case "FLYING" -> robots.add(
-                            new Creature(Creature.Type.FLYING, Creature.Faction.ROBOT, new Position(parseInt(robotPos[0]), parseInt(robotPos[1])), 2, 6, true, new Vector<>(Arrays.asList(Ability.LONG_RANGE_MISSILE, Ability.ARMAGEDDON)))
-                    );
-                    case "TANK" -> robots.add(
-                            new Creature(Creature.Type.TANK, Creature.Faction.ROBOT, new Position(parseInt(robotPos[0]), parseInt(robotPos[1])), 3, 4, false, new Vector<>(Arrays.asList(Ability.PUNCH, Ability.GRENADE)))
-                    );
+                    case "CANNON":
+                        creature = new CreatureBuilder(Faction.ROBOT, Type.CANNON).build();
+                        creature.setPos(new Position(parseInt(robotPos[0]), parseInt(robotPos[1])));
+                        robots.add(creature);
+                        break;
+                    case "FLYING":
+                        creature = new CreatureBuilder(Faction.ROBOT, Type.FLYING).build();
+                        creature.setPos(new Position(parseInt(robotPos[0]), parseInt(robotPos[1])));
+                        robots.add(creature);
+                        break;
+                    case "TANK":
+                        creature = new CreatureBuilder(Faction.ROBOT, Type.TANK).build();
+                        creature.setPos(new Position(parseInt(robotPos[0]), parseInt(robotPos[1])));
+                        robots.add(creature);
+                        break;
                 }
             }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
         this.board = new Board(width, height, terrains);
     }
 

@@ -5,6 +5,9 @@ import model.Position;
 import model.game.board.Terrain;
 import model.game.board.TerrainPlain;
 import model.game.entity.Creature;
+import model.game.entity.CreatureBuilder;
+import model.game.entity.Faction;
+import model.game.entity.Type;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -22,7 +25,8 @@ public class ViewsTest {
 
     @Test
     public void alienCreatureViewTest() {
-        Creature alien = new Creature(Creature.Type.CANNON, Creature.Faction.ALIEN, new Position(1, 3), 0, 0, false, null);
+        Creature alien = new CreatureBuilder(Faction.ALIEN, Type.CANNON).build();
+        alien.setPos(new Position(0,0));
         View view = new CreatureView(alien);
 
         GUI gui = Mockito.mock(GUI.class);
@@ -33,7 +37,8 @@ public class ViewsTest {
 
     @Test
     public void robotCreatureViewTest() {
-        Creature robot = new Creature(Creature.Type.CANNON, Creature.Faction.ROBOT, new Position(6, 2), 0, 0, false, null);
+        Creature robot = new CreatureBuilder(Faction.ROBOT, Type.CANNON).build();
+        robot.setPos(new Position(0,0));
         View view = new CreatureView(robot);
 
         GUI gui = Mockito.mock(GUI.class);
