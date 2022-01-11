@@ -8,36 +8,12 @@ import java.util.Objects;
  * The terrain that makes up the board
  */
 public abstract class Terrain {
-    /**
-     * The position of the terrain
-     */
+
     private Position pos;
 
-    /**
-     * Constructor of the terrain
-     *
-     * @param pos The position of the terrain
-     */
-    public Terrain(Position pos) {
-        this.pos = pos;
-    }
+    public Terrain(Position pos) { this.pos = pos; }
 
-    /**
-     * Sets the position of a created terrain
-     *
-     * @param pos The position of the terrain
-     */
-    public void setPos(Position pos) {
-        this.pos = pos;
-    }
-
-    /**
-     * @return The position of the terrain
-     */
-    public Position getPos() {
-        return pos;
-    }
-
+    public Position getPos() { return pos; }
 
     /**
      * @param o The object to evaluate

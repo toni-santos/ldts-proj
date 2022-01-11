@@ -101,7 +101,7 @@ public class Game {
                         case 'M' -> // Mountain Terrain
                                 terrain = new TerrainMountain(new Position(x, y));
                         case 'F' -> // Forest Terrain
-                                terrain = new TerrainForest(new Position(x, y), false);
+                                terrain = new TerrainForest(new Position(x, y));
                     }
 
                     if (terrain != null)

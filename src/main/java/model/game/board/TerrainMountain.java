@@ -31,12 +31,15 @@ public class TerrainMountain extends Terrain {
     }
 
     /**
-     * Sets the HP of the city
-     *
-     * @param HP The new HP of the city
+     * Deals 1 damage to the "mountain"
      */
-    public void setHP(int HP) {
-        this.HP = HP;
+    public void dealDamage() {
+        if (this.HP - 1 == 0) {
+            this.kill();
+            return;
+        }
+
+        this.HP--;
     }
 
     /**

@@ -7,11 +7,6 @@ import model.Position;
  */
 public class TerrainCity extends Terrain {
     /**
-     * The number of hits the "city" can take before being destroyed
-     */
-    private int HP = 1;
-
-    /**
      * Current state of the "city"
      */
     private boolean alive = true;
@@ -19,22 +14,8 @@ public class TerrainCity extends Terrain {
     /**
      * See {@link model.game.board.Terrain#Terrain}
      */
-    public TerrainCity(Position pos) { super(pos); }
-
-    /**
-     * @return The current "HP" of the "city"
-     */
-    public int getHP() {
-        return HP;
-    }
-
-    /**
-     * Sets the HP of the city
-     *
-     * @param HP The new HP of the "city"
-     */
-    public void setHP(int HP) {
-        this.HP = HP;
+    public TerrainCity(Position pos) {
+        super(pos);
     }
 
     /**
