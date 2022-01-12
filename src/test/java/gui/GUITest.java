@@ -24,6 +24,8 @@ public class GUITest {
         gui = new GUI(screen);
     }
 
+    // TODO: FIX THESE TESTS
+
     /**
      * @brief Tries to draw a new alien and verifies it by checking if the TextGraphics mock called the putString method
      * once with the 'a' character.
@@ -53,6 +55,7 @@ public class GUITest {
      * once with the wanted string and if it set the right foreground color by calling the setForegroundColor method
      * once.
      */
+
     @Test
     void drawText() {
         gui.drawText(new Position(1, 1), "Testing drawText() method.", "#000000");

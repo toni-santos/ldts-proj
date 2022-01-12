@@ -15,9 +15,9 @@ public class AlienBuilder {
             case TANK:
                 return new Creature(Creature.Type.TANK, Creature.Faction.ALIEN, 3, 4, false, new Vector<>(Arrays.asList(Ability.PUNCH, Ability.GRENADE)));
             case CANNON:
-                return new Creature(Creature.Type.CANNON, Creature.Faction.ROBOT, 2, 5, false, new Vector<>(Arrays.asList(Ability.LONG_RANGE_MISSILE, Ability.GRENADE)));
+                return new Creature(Creature.Type.CANNON, Creature.Faction.ALIEN, 2, 5, false, new Vector<>(Arrays.asList(Ability.LONG_RANGE_MISSILE, Ability.GRENADE)));
             case FLYING:
-                return new Creature(Creature.Type.FLYING, Creature.Faction.ROBOT, 2, 6, true, new Vector<>(Arrays.asList(Ability.LONG_RANGE_MISSILE, Ability.ARMAGEDDON)));
+                return new Creature(Creature.Type.FLYING, Creature.Faction.ALIEN, 2, 6, true, new Vector<>(Arrays.asList(Ability.LONG_RANGE_MISSILE, Ability.ARMAGEDDON)));
         }
         return null;
     }
