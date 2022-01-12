@@ -1,15 +1,12 @@
 import gui.GUI;
 import model.Position;
 import model.game.board.*;
-import model.game.entity.Ability;
-import model.game.entity.Creature;
+import model.game.entity.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.File;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.Vector;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,11 +24,14 @@ public class GameTest {
     }
 
     static Stream<Creature> creatureStream() {
-        return Stream.of(
-            new Creature(Creature.Type.CANNON, Creature.Faction.ROBOT, new Position(0,0), 2, 5, false, new Vector<>(Arrays.asList(Ability.LONG_RANGE_MISSILE, Ability.GRENADE))),
-            new Creature(Creature.Type.FLYING, Creature.Faction.ROBOT, new Position(0,1), 2, 6, true, new Vector<>(Arrays.asList(Ability.LONG_RANGE_MISSILE, Ability.ARMAGEDDON))),
-            new Creature(Creature.Type.TANK, Creature.Faction.ROBOT, new Position(1,1), 3, 4, false, new Vector<>(Arrays.asList(Ability.PUNCH, Ability.GRENADE)))
-        );
+        Creature c1 = new CreatureBuilder(Faction.ROBOT, Type.CANNON).build();
+        c1.setPos(new Position(0,0));
+        Creature c2 = new CreatureBuilder(Faction.ROBOT, Type.FLYING).build();
+        c2.setPos(new Position(0,1));
+        Creature c3 = new CreatureBuilder(Faction.ROBOT, Type.TANK).build();
+        c3.setPos(new Position(1,1));
+
+        return Stream.of(c1,c2,c3);
     }
 
     @Test

@@ -28,21 +28,25 @@ public class GUITest {
      * @brief Tries to draw a new alien and verifies it by checking if the TextGraphics mock called the putString method
      * once with the 'a' character.
      */
+    /*
     @Test
     void drawAlien() {
         gui.drawAlien(new Position(0,0));
         Mockito.verify(tg, Mockito.times(1)).putString(0, 0, "a");
     }
+    */
 
     /**
      * @brief Tries to draw a new robot and verifies it by checking if the TextGraphics mock called the putString method
      * once with the 'r' character.
      */
+    /*
     @Test
     void drawRobot() {
         gui.drawRobot(new Position(4,5));
         Mockito.verify(tg, Mockito.times(1)).putString(4, 5, "r");
     }
+    */
 
     /**
      * @brief Tries to draw new text and verifies it by checking if the TextGraphics mock called the putString method
