@@ -14,9 +14,8 @@ public class TerrainForest extends Terrain {
     /**
      * See {@link model.game.board.Terrain#Terrain}
      */
-    public TerrainForest(Position pos, boolean burning) {
+    public TerrainForest(Position pos) {
         super(pos);
-        this.burning = burning;
     }
 
     /**
@@ -24,14 +23,14 @@ public class TerrainForest extends Terrain {
      *
      * @param burning The current state of the city (true if burning, false otherwise)
      */
-    public void setBurning(boolean burning) {
-        this.burning = burning;
+    public void setBurning() {
+        this.burning = true;
     }
 
     /**.
      * @return True if <i>the terrain is burning</i>
      */
-    public boolean getBurning() {
-        return burning;
+    public boolean isBurning() {
+        return this.burning;
     }
 }
