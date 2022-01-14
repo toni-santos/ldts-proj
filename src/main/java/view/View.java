@@ -2,6 +2,8 @@ package view;
 
 import gui.GUI;
 
-public interface View {
-    void draw(GUI gui);
+import java.io.IOException;
+
+public interface View<T> {
+    void draw(GUI gui) throws IOException;
 }

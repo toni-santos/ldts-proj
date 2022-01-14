@@ -1,14 +1,16 @@
 package view;
 
 import gui.GUI;
-import model.game.board.Terrain;
+import model.game.terrain.Terrain;
 
-public class TerrainView implements View {
-    private final Terrain terrain;
+public class TerrainView implements View<Terrain> {
+    private Terrain terrain;
 
     public TerrainView(Terrain terrain) {
         this.terrain = terrain;
     }
+
+    public TerrainView() {}
 
     @Override
     public void draw(GUI gui) {
@@ -17,5 +19,9 @@ public class TerrainView implements View {
 
     public Terrain getTerrain() {
         return terrain;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
     }
 }
