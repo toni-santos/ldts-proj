@@ -1,4 +1,4 @@
-package model.game.board;
+package model.game.terrain;
 
 import model.Position;
 
@@ -12,7 +12,7 @@ public class TerrainForest extends Terrain {
     private boolean burning = false;
 
     /**
-     * See {@link model.game.board.Terrain#Terrain}
+     * See {@link Terrain#Terrain}
      */
     public TerrainForest(Position pos) {
         super(pos);

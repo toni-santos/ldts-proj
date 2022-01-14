@@ -1,4 +1,4 @@
-package model.game.board;
+package model.game.terrain;
 
 import model.Position;
 
@@ -8,7 +8,7 @@ import model.Position;
 public class TerrainPlain extends Terrain {
 
     /**
-     * See {@link model.game.board.Terrain#Terrain}
+     * See {@link Terrain#Terrain}
      */
     public TerrainPlain(Position pos) { super(pos); }
 }

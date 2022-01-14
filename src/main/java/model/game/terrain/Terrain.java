@@ -1,7 +1,6 @@
-package model.game.board;
+package model.game.terrain;
 
 import model.Position;
-import model.game.entity.Creature;
 
 import java.util.Objects;
 
@@ -9,6 +8,14 @@ import java.util.Objects;
  * The terrain that makes up the board
  */
 public abstract class Terrain {
+
+    public enum Type {
+        PLAIN,
+        CITY,
+        FOREST,
+        MOUNTAIN,
+        WATER
+    }
 
     private Position pos;
 

@@ -1,4 +1,4 @@
-package model.game.board;
+package model.game.terrain;
 
 import model.Position;
 
@@ -12,7 +12,7 @@ public class TerrainMountain extends Terrain {
     private int HP = 2;
 
     /**
-     * See {@link model.game.board.Terrain#Terrain}
+     * See {@link Terrain#Terrain}
      */
     public TerrainMountain(Position pos) {
         super(pos);
