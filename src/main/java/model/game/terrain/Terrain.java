@@ -1,6 +1,7 @@
 package model.game.board;
 
 import model.Position;
+import model.game.entity.Creature;
 
 import java.util.Objects;
 
