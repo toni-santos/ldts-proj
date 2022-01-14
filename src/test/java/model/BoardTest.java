@@ -1,14 +1,10 @@
 package model;
 
 import model.game.board.*;
-import org.junit.jupiter.api.BeforeAll;
+import model.game.terrain.Terrain;
+import model.game.terrain.TerrainPlain;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.io.File;
-import java.net.URISyntaxException;
-import java.util.Vector;
-import java.util.stream.Stream;
 
 
 /**
