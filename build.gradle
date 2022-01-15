@@ -1,9 +1,14 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
-group 'org.example'
+group 'pt.up.fe.ldts'
 version '1.0-SNAPSHOT'
+
+application {
+    mainClass.set('pt.up.fe.ldts.ootb.App')
+}
 
 repositories {
     mavenCentral()
@@ -11,10 +16,10 @@ repositories {
 
 dependencies {
     implementation 'org.javatuples:javatuples:1.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
     implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.1'
-    testImplementation 'org.mockito:mockito-core:3.7.7'
+    testImplementation 'org.mockito:mockito-core:4.2.0'
 }
 
 test {
