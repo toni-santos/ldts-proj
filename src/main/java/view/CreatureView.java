@@ -3,12 +3,14 @@ package view;
 import gui.GUI;
 import model.game.entity.Creature;
 
-public class CreatureView implements View {
-    private final Creature creature;
+public class CreatureView implements View<Creature> {
+    private Creature creature;
 
     public CreatureView(Creature creature) {
         this.creature = creature;
     }
+
+    public CreatureView() {}
 
     @Override
     public void draw(GUI gui) {
@@ -21,4 +23,6 @@ public class CreatureView implements View {
     public Creature getCreature() {
         return creature;
     }
+
+    public void setCreature(Creature c) { this.creature = c; }
 }

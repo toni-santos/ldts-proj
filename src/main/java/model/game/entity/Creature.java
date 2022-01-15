@@ -8,7 +8,7 @@ import java.util.Vector;
 /**
  * An unit controlled by the player or the game's "AI"
  */
-public class Creature {
+public abstract class Creature {
 
     /**
      * The factions a creature can belong to (mutually exclusive)
@@ -48,16 +48,6 @@ public class Creature {
     }
 
     /**
-     * The type of the creature
-     */
-    private Type type;
-
-    /**
-     * The faction of the creature
-     */
-    private Faction faction;
-
-    /**
      * The position of the creature
      */
     private Position pos;
@@ -90,16 +80,13 @@ public class Creature {
     /**
      * Creates a creature with the given parameters
      *
-     * @param type The type of the creature
-     * @param faction The faction of the creature
      * @param HP The HP of the creature
      * @param movementRange The range of movement of the creature
      * @param flying The ability of the unit to fly
      * @param abilities The abilities that the unit possesses
      */
-    public Creature(Type type, Faction faction, int HP, int movementRange, boolean flying, Vector<Ability> abilities)  {
-        this.type = type;
-        this.faction = faction;
+    public Creature(Position pos, int HP, int movementRange, boolean flying, Vector<Ability> abilities)  {
+        this.pos = pos;
         this.HP = HP;
         this.movementRange = movementRange;
         this.flying = flying;
@@ -115,18 +102,6 @@ public class Creature {
      * @return The current position of the creature
      */
     public Position getPos() { return pos; }
-
-    public void setPos(Position pos) { this.pos = pos; }
-
-    /**
-     * @return The type of the creature
-     */
-    public Type getType() { return type; }
-
-    /**
-     * @return The faction of the creature
-     */
-    public Faction getFaction() { return faction; }
 
     /**
      * @return True if <i>the creature is alive</i>
@@ -153,6 +128,10 @@ public class Creature {
      */
     public void kill() { this.alive = false; }
 
+    abstract public Creature.Type getType();
+
+    abstract public Creature.Faction getFaction();
+
     /**
      * @param o The object to evaluate
      * @return True if <i>all of the attributes of the creatures being compared are exactly the same (HP, movementRange, alive, flying, type, faction, position and abilities)</i>
@@ -162,11 +141,11 @@ public class Creature {
         if (this == o) return true;
         if (!(o instanceof Creature)) return false;
         Creature creature = (Creature) o;
-        return getHP() == creature.getHP() && getMovementRange() == creature.getMovementRange() && isAlive() == creature.isAlive() && isFlying() == creature.isFlying() && getType() == creature.getType() && getFaction() == creature.getFaction() && getPos().equals(creature.getPos()) && getAbilities().equals(creature.getAbilities());
+        return getHP() == creature.getHP() && getMovementRange() == creature.getMovementRange() && isAlive() == creature.isAlive() && isFlying() == creature.isFlying() && getPos().equals(creature.getPos()) && getAbilities().equals(creature.getAbilities());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, faction, getPos(), getHP(), getMovementRange(), isAlive(), isFlying(), getAbilities());
+        return Objects.hash(getPos(), getHP(), getMovementRange(), isAlive(), isFlying(), getAbilities());
     }
 }

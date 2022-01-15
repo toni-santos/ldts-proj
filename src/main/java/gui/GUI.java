@@ -9,8 +9,8 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import model.Position;
-import model.game.board.*;
-import model.game.entity.Creature;
+import model.game.entity.*;
+import model.game.terrain.*;
 
 import java.io.IOException;
 
@@ -98,11 +98,16 @@ public class GUI {
      * @param creature the alien to draw.
      */
     public void drawAlien(Creature creature) {
-        char c = switch (creature.getType()) {
-            case TANK -> 't';
-            case CANNON -> 'c';
-            case FLYING -> 'f';
-        };
+        char c = 'E';
+
+        if (creature.getType() == Creature.Type.TANK) {
+            c = 't';
+        } else if (creature.getType() == Creature.Type.CANNON) {
+            c = 'c';
+        } else if (creature.getType() == Creature.Type.FLYING) {
+            c = 'f';
+        }
+
         drawEntity(creature.getPos().getX(), creature.getPos().getY(), c);
     }
 
@@ -111,11 +116,16 @@ public class GUI {
      * @param creature the robot to draw.
      */
     public void drawRobot(Creature creature) {
-        char c = switch (creature.getType()) {
-            case TANK -> 'T';
-            case CANNON -> 'C';
-            case FLYING -> 'F';
-        };
+        char c = 'E';
+
+        if (creature.getType() == Creature.Type.TANK) {
+            c = 't';
+        } else if (creature.getType() == Creature.Type.CANNON) {
+            c = 'c';
+        } else if (creature.getType() == Creature.Type.FLYING) {
+            c = 'f';
+        }
+
         drawEntity(creature.getPos().getX(), creature.getPos().getY(), c);
     }
 

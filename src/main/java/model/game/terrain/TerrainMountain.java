@@ -1,4 +1,4 @@
-package model.game.board;
+package model.game.terrain;
 
 import model.Position;
 
@@ -12,12 +12,7 @@ public class TerrainMountain extends Terrain {
     private int HP = 2;
 
     /**
-     * Current state of the terrain
-     */
-    private boolean alive = true;
-
-    /**
-     * See {@link model.game.board.Terrain#Terrain}
+     * See {@link Terrain#Terrain}
      */
     public TerrainMountain(Position pos) {
         super(pos);
@@ -34,25 +29,13 @@ public class TerrainMountain extends Terrain {
      * Deals 1 damage to the "mountain"
      */
     public void dealDamage() {
-        if (this.HP - 1 == 0) {
-            this.kill();
+        if (this.HP == 0)
             return;
-        }
-
         this.HP--;
     }
 
     /**
      * @return True if <i>the city is not dead</i>
      */
-    public boolean isAlive() {
-        return alive;
-    }
-
-    /**
-     * Set the "mountain's" alive state to false (dead)
-     */
-    public void kill() {
-        this.alive = false;
-    }
+    public boolean isAlive() { return this.HP == 0; }
 }

@@ -1,4 +1,4 @@
-package model.game.board;
+package model.game.terrain;
 
 import model.Position;
 
@@ -12,7 +12,7 @@ public class TerrainCity extends Terrain {
     private boolean alive = true;
 
     /**
-     * See {@link model.game.board.Terrain#Terrain}
+     * See {@link Terrain#Terrain}
      */
     public TerrainCity(Position pos) {
         super(pos);

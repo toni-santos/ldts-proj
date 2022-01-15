@@ -1,11 +1,10 @@
 package model.game.board;
 
 import model.Position;
+import model.game.terrain.Terrain;
+import model.game.terrain.TerrainPlain;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Vector;
 
 import static java.lang.Integer.valueOf;
