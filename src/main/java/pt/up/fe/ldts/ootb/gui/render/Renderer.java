@@ -3,11 +3,11 @@ package pt.up.fe.ldts.ootb.gui.render;
 import pt.up.fe.ldts.ootb.util.Vector;
 
 public interface Renderer {
-    void drawCircle(Vector center, int radius, int fill);
+    void drawCircle(Vector topLeft, Vector bottomRight, int color);
 
-    void drawRectange(Vector topLeft, Vector bottomRight, int fill);
+    void drawRectange(Vector topLeft, Vector bottomRight, int color);
 
-    void drawLine(Vector from, Vector to, int color, int width);
+    void drawLine(Vector from, Vector to, int color);
 
     void drawSprite(Vector position, Sprite sprite);
 

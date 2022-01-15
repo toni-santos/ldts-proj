@@ -20,17 +20,17 @@ public class LanternaGUI extends BaseGUI {
     }
 
     @Override
-    public void drawCircle(Vector center, int radius, int fill) {
+    public void drawCircle(Vector topLeft, Vector bottomRight, int color) {
         // TODO
     }
 
     @Override
-    public void drawRectange(Vector topLeft, Vector bottomRight, int fill) {
+    public void drawRectange(Vector topLeft, Vector bottomRight, int color) {
         // TODO
     }
 
     @Override
-    public void drawLine(Vector from, Vector to, int color, int weight) {
+    public void drawLine(Vector from, Vector to, int color) {
         // TODO
     }
 
