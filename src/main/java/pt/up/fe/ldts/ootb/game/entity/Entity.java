@@ -1,6 +1,8 @@
 package pt.up.fe.ldts.ootb.game.entity;
 
 import pt.up.fe.ldts.ootb.gui.render.Renderable;
+import pt.up.fe.ldts.ootb.gui.render.Renderer;
+import pt.up.fe.ldts.ootb.gui.render.Sprite;
 import pt.up.fe.ldts.ootb.util.Vector;
 
 public abstract class Entity implements Renderable {
@@ -16,5 +18,9 @@ public abstract class Entity implements Renderable {
 
     public void setPosition(Vector vector) {
         this.position = vector;
+    }
+
+    protected void drawSelf(Renderer renderer, Sprite sprite) {
+        renderer.drawSprite(position.mul(48), sprite);
     }
 }
