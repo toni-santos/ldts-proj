@@ -3,9 +3,9 @@ package pt.up.fe.ldts.ootb.gui.render;
 import pt.up.fe.ldts.ootb.util.Vector;
 
 public interface Renderer {
-    void drawCircle(Vector topLeft, Vector bottomRight, int color);
+    void drawEllipse(Vector topLeft, Vector bottomRight, int color);
 
-    void drawRectange(Vector topLeft, Vector bottomRight, int color);
+    void drawRectangle(Vector topLeft, Vector bottomRight, int color);
 
     void drawLine(Vector from, Vector to, int color);
 
