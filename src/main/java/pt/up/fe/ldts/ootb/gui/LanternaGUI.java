@@ -1,9 +1,19 @@
 package pt.up.fe.ldts.ootb.gui;
 
+import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.screen.Screen;
 import pt.up.fe.ldts.ootb.gui.render.Sprite;
 import pt.up.fe.ldts.ootb.util.Vector;
 
 public class LanternaGUI extends BaseGUI {
+    private final Screen screen;
+    private final TextGraphics textGraphics;
+
+    public LanternaGUI(Screen screen) {
+        this.screen = screen;
+        textGraphics = screen.newTextGraphics();
+    }
+
     @Override
     public void getInput() {
         // TODO
