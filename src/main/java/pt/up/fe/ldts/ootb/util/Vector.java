@@ -25,4 +25,20 @@ public record Vector(int x, int y) {
     public Vector div(int n) {
         return new Vector(x/n, y/n);
     }
+
+    public Vector normalize() {
+        return new Vector(Integer.signum(x), Integer.signum(y));
+    }
+
+    public double length() {
+        return Math.sqrt(x*x + y*y);
+    }
+
+    public int distance(Vector v1) {
+        return (int) this.sub(v1).length();
+    }
+
+    public int gridDistance(Vector v) {
+        return Math.abs(x - v.x) + Math.abs(y - v.y);
+    }
 }
