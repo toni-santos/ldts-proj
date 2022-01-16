@@ -25,7 +25,9 @@ public class GameTest {
 
     @BeforeAll
     public static void setup() {
-        game = new Game(LevelLoader.loadLevel("lvl02.lvl"));
+        App app = new App(Mockito.mock(Renderer.class), Mockito.mock(InputHandler.class));
+
+        game = new Game(app, LevelLoader.loadLevel("lvl02.lvl"));
     }
 
     @Test
@@ -39,10 +41,7 @@ public class GameTest {
 
     @Test
     public void isValidMovementTest() {
-        Assertions.assertTrue(game.isValidMovement(TEST_ALIEN, new Vector(2,0)));
-        Assertions.assertFalse(game.isValidMovement(TEST_ALIEN, new Vector(1,0)));
-
-        Assertions.assertTrue(game.isValidMovement(TEST_ROBOT, new Vector(2,0)));
-        Assertions.assertFalse(game.isValidMovement(TEST_ROBOT, new Vector(1,0)));
+        Assertions.assertTrue(game.isValidMovement(TEST_ALIEN, new Vector(1,1)));
+        Assertions.assertFalse(game.isValidMovement(TEST_ALIEN, new Vector(2,0)));
     }
 }

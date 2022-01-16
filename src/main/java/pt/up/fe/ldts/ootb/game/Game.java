@@ -1,9 +1,11 @@
 package pt.up.fe.ldts.ootb.game;
 
+import pt.up.fe.ldts.ootb.App;
 import pt.up.fe.ldts.ootb.game.entity.creature.Creature;
 import pt.up.fe.ldts.ootb.game.entity.creature.alien.Alien;
 import pt.up.fe.ldts.ootb.game.entity.creature.robot.Robot;
 import pt.up.fe.ldts.ootb.game.entity.terrain.Terrain;
+import pt.up.fe.ldts.ootb.game.state.InitialState;
 import pt.up.fe.ldts.ootb.game.state.State;
 import pt.up.fe.ldts.ootb.util.Vector;
 
@@ -12,19 +14,26 @@ import java.util.List;
 import java.util.Set;
 
 public class Game {
+    private final App app;
     private State state;
     private final Board board;
     private final List<Robot> robots;
     private final List<Alien> aliens;
 
-    public Game(Level level) {
+    public Game(App app, Level level) {
+        this.app = app;
+
         board = level.board();
         robots = level.robots();
         aliens = level.aliens();
+        state = new InitialState(this);
+        state.init(app);
     }
 
     public void changeState(State state) {
+        this.state.dispose(app);
         this.state = state;
+        this.state.init(app);
     }
 
     public State getState() {
