@@ -4,17 +4,19 @@ import pt.up.fe.ldts.ootb.gui.input.*;
 import pt.up.fe.ldts.ootb.gui.render.Renderable;
 import pt.up.fe.ldts.ootb.gui.render.Renderer;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public abstract class BaseGUI implements Renderer, InputHandler {
-    protected final Set<Renderable> renderables;
+    protected final List<Renderable> renderables;
     protected final Set<KeyboardListener> keyboardListeners;
     protected final Set<MouseMoveListener> mouseMoveListeners;
     protected final Set<MouseClickListener> mouseClickListeners;
 
     public BaseGUI() {
-        renderables = new HashSet<>();
+        renderables = new ArrayList<>();
         keyboardListeners = new HashSet<>();
         mouseMoveListeners = new HashSet<>();
         mouseClickListeners = new HashSet<>();

@@ -1,22 +1,18 @@
 package pt.up.fe.ldts.ootb.gui;
 
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.MouseAction;
-import com.googlecode.lanterna.input.MouseActionType;
 import com.googlecode.lanterna.screen.Screen;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
 import net.jqwik.api.constraints.IntRange;
-import net.jqwik.api.lifecycle.BeforeProperty;
 import net.jqwik.api.lifecycle.BeforeTry;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
 import org.mockito.Mockito;
 import pt.up.fe.ldts.ootb.gui.input.*;
 import pt.up.fe.ldts.ootb.gui.render.Renderable;
@@ -24,9 +20,7 @@ import pt.up.fe.ldts.ootb.gui.render.Sprite;
 import pt.up.fe.ldts.ootb.util.Vector;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class LanternaGUITest {
     private static final Map<Integer, TextColor> COLORS = new HashMap<>();
@@ -34,7 +28,7 @@ public class LanternaGUITest {
 
     private LanternaGUI gui;
     private Screen screen;
-    private TextGraphics textGraphics;
+    private LanternaGUI.MyMouseAdapter mouseAdapter;
 
     @BeforeAll
     public static void setupColors() {
@@ -42,11 +36,11 @@ public class LanternaGUITest {
         COLORS.put(0xFFFFFF00, new TextColor.RGB(0xFF, 0xFF, 0x00));
         COLORS.put(0xFFFF00FF, new TextColor.RGB(0xFF, 0x00, 0xFF));
         COLORS.put(0xFF00FFFF, new TextColor.RGB(0x00, 0xFF, 0xFF));
-        COLORS.put(0x00000000, null);
-        COLORS.put(0x44FFFFFF, new TextColor.RGB(0xFF, 0xFF, 0xFF));
-        COLORS.put(0x22FF0000, new TextColor.RGB(0xFF, 0x00, 0x00));
-        COLORS.put(0x5600FF00, new TextColor.RGB(0x00, 0xFF, 0x00));
-        COLORS.put(0x890000FF, new TextColor.RGB(0x00, 0x00, 0xFF));
+        COLORS.put(0x00000000, new TextColor.RGB(0x00, 0x00, 0x00));
+        COLORS.put(0x44FFFFFF, new TextColor.RGB(0x44, 0x44, 0x44));
+        COLORS.put(0x22FF0000, new TextColor.RGB(0x22, 0x00, 0x00));
+        COLORS.put(0x5600FF00, new TextColor.RGB(0x00, 0x56, 0x00));
+        COLORS.put(0x890000FF, new TextColor.RGB(0x00, 0x00, 0x89));
     }
 
     @BeforeAll
@@ -67,11 +61,15 @@ public class LanternaGUITest {
     @BeforeEach
     public void setUp() {
         screen = Mockito.mock(Screen.class);
-        textGraphics = Mockito.mock(TextGraphics.class);
+        TextGraphics textGraphics = Mockito.mock(TextGraphics.class);
+        mouseAdapter = Mockito.mock(LanternaGUI.MyMouseAdapter.class);
 
-        Mockito.when(screen.newTextGraphics()).thenReturn(textGraphics);
+        Mockito.when(screen.newTextGraphics())
+                .thenReturn(textGraphics);
+        Mockito.when(textGraphics.getCharacter(Mockito.anyInt(), Mockito.anyInt()))
+                .thenReturn(TextCharacter.DEFAULT_CHARACTER);
 
-        gui = new LanternaGUI(screen);
+        gui = new LanternaGUI(screen, mouseAdapter);
     }
 
     @Test
@@ -94,7 +92,7 @@ public class LanternaGUITest {
     @Test
     public void notifyKeyboardListenersTest() {
         KeyboardListener keyboardListener = Mockito.mock(KeyboardListener.class);
-        KeyboardEvent event = new KeyboardEvent();
+        KeyboardEvent event = new KeyboardEvent('A');
 
         gui.addKeyboardListener(keyboardListener);
         gui.notifyKeyboardListeners(event);
@@ -141,6 +139,31 @@ public class LanternaGUITest {
 
     @Test
     public void getInputTest() throws IOException {
+        KeyboardEvent[] keyboardEvents = {
+                new KeyboardEvent('A'),
+                new KeyboardEvent('b'),
+                new KeyboardEvent('C'),
+                new KeyboardEvent('\n')
+        };
+        Mockito.when(screen.pollInput()).thenReturn(
+                new KeyStroke('A', false, false),
+                new KeyStroke('b', false, false),
+                new KeyStroke('C', false, false),
+                new KeyStroke('\n', false, false),
+                null
+        );
+
+        List<MouseMoveEvent> moveEvents = Arrays.asList(
+                new MouseMoveEvent(new Vector(4, 7)),
+                new MouseMoveEvent(new Vector(1, 9)),
+                new MouseMoveEvent(new Vector(10, 3))
+        );
+        List<MouseClickEvent> clickEvents = Arrays.asList(
+                new MouseClickEvent(new Vector(4, 7), 1),
+                new MouseClickEvent(new Vector(1, 9), 3),
+                new MouseClickEvent(new Vector(10, 3), 2)
+        );
+
         KeyboardListener keyboardListener = Mockito.mock(KeyboardListener.class);
         MouseMoveListener mouseMoveListener = Mockito.mock(MouseMoveListener.class);
         MouseClickListener mouseClickListener = Mockito.mock(MouseClickListener.class);
@@ -149,18 +172,21 @@ public class LanternaGUITest {
         gui.addMouseMoveListener(mouseMoveListener);
         gui.addMouseClickListener(mouseClickListener);
 
-        Mockito.when(screen.pollInput()).thenReturn(
-                new KeyStroke('A', false, false, false),
-                new MouseAction(MouseActionType.MOVE, 0, new TerminalPosition(4, 7)),
-                new MouseAction(MouseActionType.CLICK_DOWN, 3, new TerminalPosition(3, 9)),
-                null
-        );
+        Mockito.when(mouseAdapter.getMoveEventQueue()).thenReturn(new LinkedList<>(moveEvents));
+        Mockito.when(mouseAdapter.getClickEventQueue()).thenReturn(new LinkedList<>(clickEvents));
+
+        InOrder keyboardListener_ = Mockito.inOrder(keyboardListener);
+        InOrder mouseMoveListener_ = Mockito.inOrder(mouseMoveListener);
+        InOrder mouseClickListener_ = Mockito.inOrder(mouseClickListener);
 
         gui.getInput();
 
-        Mockito.verify(keyboardListener, Mockito.times(1)).onKeyboardEvent(new KeyboardEvent());
-        Mockito.verify(mouseMoveListener, Mockito.times(1)).onMouseMove(new MouseMoveEvent(new Vector(4, 7)));
-        Mockito.verify(mouseClickListener, Mockito.times(1)).onMouseClick(new MouseClickEvent(new Vector(3, 9), 3));
+        for (KeyboardEvent event : keyboardEvents)
+            keyboardListener_.verify(keyboardListener, Mockito.times(1)).onKeyboardEvent(event);
+        for (MouseMoveEvent event : moveEvents)
+            mouseMoveListener_.verify(mouseMoveListener, Mockito.times(1)).onMouseMove(event);
+        for (MouseClickEvent event : clickEvents)
+            mouseClickListener_.verify(mouseClickListener, Mockito.times(1)).onMouseClick(event);
     }
 
     @Test
@@ -181,37 +207,42 @@ public class LanternaGUITest {
             gui.drawEllipse(tl, v, 0xFFFFFFFF);
             Mockito.verify(screen, Mockito.times(ELLIPSE_AREAS.get(v)))
                     .setCharacter(Mockito.anyInt(), Mockito.anyInt(), Mockito.any());
-            Mockito.reset(screen);
+            Mockito.clearInvocations(screen);
         }
     }
 
-    @Property
+    @Property(tries = 10)
     public void drawRectangleTest(
-            @ForAll @IntRange(max = 0xFFFF) int x1,
-            @ForAll @IntRange(max = 0xFFFF) int y1,
-            @ForAll @IntRange(max = 0xFFFF) int x2,
-            @ForAll @IntRange(max = 0xFFFF) int y2) {
+            @ForAll @IntRange(max = 0xFF) int x1,
+            @ForAll @IntRange(max = 0xFF) int y1,
+            @ForAll @IntRange(max = 0xFF) int x2,
+            @ForAll @IntRange(max = 0xFF) int y2) {
         Vector topLeft = new Vector(Math.min(x1, x2), Math.min(y1, y2));
         Vector bottomRight = new Vector(Math.max(x1, x2), Math.max(y1, y2));
+        Vector offset = bottomRight.sub(topLeft);
 
         gui.drawRectangle(topLeft, bottomRight, 0xFFFFFFFF);
         
-        Mockito.verify(textGraphics).fillRectangle(Mockito.any(), Mockito.any(), Mockito.any());
+        Mockito.verify(screen, Mockito.times(offset.x() * offset.y()))
+                .setCharacter(Mockito.anyInt(), Mockito.anyInt(), Mockito.any());
     }
 
-    @Property
+    @Property(tries = 10)
     public void drawLineTest(
-            @ForAll @IntRange(max = 0xFFFF) int x1,
-            @ForAll @IntRange(max = 0xFFFF) int y1,
-            @ForAll @IntRange(max = 0xFFFF) int x2,
-            @ForAll @IntRange(max = 0xFFFF) int y2) {
-        Vector topLeft = new Vector(x1, y1);
-        Vector bottomRight = new Vector(x2, y2);
+            @ForAll @IntRange(max = 0xFF) int x1,
+            @ForAll @IntRange(max = 0xFF) int y1,
+            @ForAll @IntRange(max = 0xFF) int x2,
+            @ForAll @IntRange(max = 0xFF) int y2) {
+        Vector from = new Vector(x1, y1);
+        Vector to = new Vector(x2, y2);
 
-        gui.drawLine(topLeft, bottomRight, 0xFFFFFFFF);
+        Vector offset = to.sub(from);
+        int times = Math.max(Math.abs(offset.x()), Math.abs(offset.y()));
 
-        Mockito.verify(textGraphics)
-                .drawLine(Mockito.eq(x1), Mockito.eq(y1), Mockito.eq(x2), Mockito.eq(y2), Mockito.any());
+        gui.drawLine(from, to, 0xFFFFFFFF);
+
+        Mockito.verify(screen, Mockito.times(times))
+                .setCharacter(Mockito.anyInt(), Mockito.anyInt(), Mockito.any());
     }
 
     @Test
@@ -234,26 +265,14 @@ public class LanternaGUITest {
     }
 
     @Test
-    public void drawTextTest() {
-        // TODO
-    }
-
-    @Test
     public void drawPixelTest() {
         Vector pos = new Vector(2, 6);
 
         for (int color : COLORS.keySet()) {
             gui.drawPixel(pos, color);
 
-            TextColor c = COLORS.get(color);
-
-            if (c != null)
-                Mockito.verify(screen, Mockito.times(1))
-                    .setCharacter(
-                            pos.x(), pos.y(),
+            Mockito.verify(screen, Mockito.times(1)).setCharacter(pos.x(), pos.y(),
                             TextCharacter.DEFAULT_CHARACTER.withBackgroundColor(COLORS.get(color)));
-            else
-                Mockito.verifyNoInteractions(screen);
 
             Mockito.clearInvocations(screen);
         }

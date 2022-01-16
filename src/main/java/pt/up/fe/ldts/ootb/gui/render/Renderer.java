@@ -1,11 +1,14 @@
 package pt.up.fe.ldts.ootb.gui.render;
 
+import pt.up.fe.ldts.ootb.App;
 import pt.up.fe.ldts.ootb.util.Vector;
 
 public interface Renderer {
     void drawEllipse(Vector topLeft, Vector bottomRight, int color);
 
     void drawRectangle(Vector topLeft, Vector bottomRight, int color);
+
+    void drawRectangle(Vector topLeft, Vector bottomRight, int fill, int stroke);
 
     void drawLine(Vector from, Vector to, int color);
 
@@ -22,4 +25,8 @@ public interface Renderer {
     void addRenderable(Renderable renderable);
 
     void removeRenderable(Renderable renderable);
+
+    void init(App app);
+
+    void dispose(App app);
 }

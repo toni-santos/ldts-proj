@@ -1,5 +1,7 @@
 package pt.up.fe.ldts.ootb.gui.input;
 
+import pt.up.fe.ldts.ootb.App;
+
 public interface InputHandler {
     void getInput();
 
@@ -14,4 +16,8 @@ public interface InputHandler {
     void addMouseClickListener(MouseClickListener listener);
 
     void removeMouseClickListener(MouseClickListener listener);
+
+    void init(App app);
+
+    void dispose(App app);
 }
