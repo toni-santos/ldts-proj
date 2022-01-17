@@ -14,4 +14,11 @@ public record Board(int width, int height, Terrain[] terrains) {
     public boolean isInsideBoard(Vector position) {
         return position.x() >= 0 && position.x() < width && position.y() >= 0 && position.y() < height;
     }
+
+    public int nests() {
+        int power = 0;
+        for (Terrain t: terrains)
+            power += t.getPower();
+        return power;
+    }
 }
