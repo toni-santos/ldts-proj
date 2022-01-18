@@ -6,7 +6,6 @@ import pt.up.fe.ldts.ootb.util.Vector;
 public class FlyingAlien extends Alien {
     public FlyingAlien(Vector position) {
         super(position);
-        // TODO
         setAbility(new DiveAbility());
     }
 
