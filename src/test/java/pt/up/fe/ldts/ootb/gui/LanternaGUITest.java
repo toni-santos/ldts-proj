@@ -237,7 +237,7 @@ public class LanternaGUITest {
         Vector to = new Vector(x2, y2);
 
         Vector offset = to.sub(from);
-        int times = Math.max(Math.abs(offset.x()), Math.abs(offset.y()));
+        int times = Math.max(Math.abs(offset.x()), Math.abs(offset.y())) + 1;
 
         gui.drawLine(from, to, 0xFFFFFFFF);
 
