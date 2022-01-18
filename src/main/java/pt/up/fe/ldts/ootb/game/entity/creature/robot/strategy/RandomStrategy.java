@@ -22,10 +22,12 @@ public class RandomStrategy extends BaseStrategy {
     public void planAttack(Creature creature, Game game) {
         Set<Vector> inRange = creature.getAbility().getTilesInRange(creature.getPosition(), game);
 
-        int rand = random.nextInt(inRange.size());
+        if (inRange.size() > 0) {
+            int rand = random.nextInt(inRange.size());
 
-        Vector attackPos = (Vector) inRange.toArray()[rand];
-        attackOffset = attackPos.sub(creature.getPosition());
+            Vector attackPos = (Vector) inRange.toArray()[rand];
+            attackOffset = attackPos.sub(creature.getPosition());
+        }
     }
 
     @Override
